@@ -1,3 +1,5 @@
 .DS_Store
 thumbs.db
 __pycache__/
+# Visual companion session artifacts
+.idea-to-plan/

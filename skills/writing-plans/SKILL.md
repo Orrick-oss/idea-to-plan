@@ -5,15 +5,36 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 
 # Writing Plans
 
+## 快速参考（先读这一段）
+
+**写计划的目标：** 写给一个没见过这份代码库、也没看过这份规格的工程师——他知道了精确接口与精确测试，就能写出符合项目惯例的代码。计划只承载"实现者无法自行决定的事"。
+
+**核心原则：** DRY · YAGNI · TDD · 频繁提交。**每个步骤 = 一个动作 + 一个可检查的结果。**
+
+**计划文档解剖：**
+
+1. **头部（Plan Document Header）**：目标、架构、技术栈、规格出处、全局约束、Review Focus
+2. **文件结构（File Structure）**：创建/修改哪些文件、各自职责
+3. **任务（Task N）**：Files / Interfaces / 若干步骤（每步：写失败测试 → 验证失败 → 最小实现 → 验证通过 → 提交）
+4. **自检（Self-Review）** 后交用户审阅，确认执行方式后再动手
+
+**动工前检查清单：**
+
+- [ ] 规格中每个需求都能指出对应任务
+- [ ] 每个步骤都只允许实现者写出唯一一种合理做法
+- [ ] 后序任务的接口与前序任务的定义完全一致
+- [ ] Review Focus 中列出的失败模式都有对应任务的测试覆盖
+- [ ] 计划长度与规格相称（不是代码转录，也没有"TBD"式空话）
+
 ## Overview
 
 Write implementation plans for an engineer who has not seen this codebase or this spec. Assume they write idiomatic code in the project's language once they know the exact interface and the exact test, and that they will make a reasonable choice wherever the plan leaves one open. What they cannot know is what you decided: which files, which names and signatures, which values from the spec, which tests prove each task. Document those. Give them the whole plan as bite-sized tasks. DRY. YAGNI. TDD. Frequent commits.
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** If working in an isolated worktree, it should have been created via the `superpowers:using-git-worktrees` skill at execution time.
+**Context:** 如需在隔离的工作树（worktree）中执行，先按你平台的工作树机制创建隔离环境，再在其中执行本计划。
 
-**Save plans to:** `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to:** `docs/idea-to-plan/plans/YYYY-MM-DD-<feature-name>.md`
 - (User preferences for plan location override this default)
 
 ## Scope Check
@@ -56,7 +77,7 @@ independently testable deliverable.
 ```markdown
 # [Feature Name] Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **For agentic workers:** Implement this plan task-by-task, tracking steps with checkbox (`- [ ]`) syntax. Choose the execution method with the user before starting (see "Execution Methods" in the writing-plans skill): subagent-driven (fresh worker + reviewer per task, recommended) or native (in-session, final review).
 
 **Goal:** [One sentence describing what this builds]
 
@@ -160,6 +181,31 @@ decide nothing ("TBD", "handle edge cases", "add appropriate validation",
 "write tests for the above", a type or function no task defines) are the
 opposite failure, and the self-review catches both.
 
+## Execution Methods（内置，无需外部技能）
+
+计划获批准后，与用户确认执行方式（用户已明确指定则直接沿用），再动手实现。两种方式都按任务逐个推进，步骤用 `- [ ]` 跟踪。
+
+**方式一：子代理驱动（Subagent-driven，高耦合/高代价任务推荐）**
+
+- 每个任务派发一个全新的子代理实现该任务；
+- 每个任务完成后，由一个**全新的审查者**检查通过，再开始下一个任务；
+- 全部任务完成后，对整条分支做一次整体审查。
+- 代价：每个任务与每次审查都要消耗一份全新上下文。任务间接口依赖多、单个任务出错代价高时，最稳妥。
+
+**方式二：原生执行（Native，最快）**
+
+- 在当前会话中由你逐个实现所有任务；
+- 全部完成后，由一个审查者在能力最强的模型上对整条分支做一次审查。
+- 代价：直到最后才有独立审查。计划本身已承载完整设计时最适用——此时计划就是上下文，中档会话模型也能可靠执行。
+
+**选择建议：** 向用户推荐时给出理由——任务数量、任务间接口依赖程度、出错代价各如何。
+
+**通用执行规则：**
+
+- 严格按任务顺序执行；每个任务的实现者只看到自己任务的说明（Interfaces 块是其了解相邻任务接口的唯一途径）；
+- 每个任务的验证步骤必须实际运行并确认通过后，才进入下一任务；
+- 执行中发现计划与现实不符（接口对不上、测试假设错误、遗漏了规格条目），停下来向用户说明并修订计划，不要默默绕过。
+
 ## Self-Review
 
 After writing the complete plan, look at the spec with fresh eyes and check the plan against it. This is a checklist you run yourself — not a subagent dispatch.
@@ -186,7 +232,7 @@ them to review the plan and choose an execution method before implementation.
 
 **When no execution method has already been supplied:**
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Please review the plan. Which execution approach would you prefer?**
+**"Plan complete and saved to `docs/idea-to-plan/plans/<filename>.md`. Please review the plan. Which execution approach would you prefer?**
 
 - **Subagent-driven** - A fresh subagent implements each task and a fresh reviewer checks it before the next one starts, then a whole-branch review at the end. Most thorough; costs a fresh context per task and per review.
 - **Native** - I implement every task myself in this session, the way this harness runs work, then one fresh reviewer on the most capable model checks the whole branch. Cheapest and fastest; no independent review until the end. Runs well with a mid-tier session model, since the plan carries the design.
@@ -195,10 +241,7 @@ them to review the plan and choose an execution method before implementation.
 
 **When an execution method has already been supplied:**
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Please review the plan. Does it capture what you want?"**
+**"Plan complete and saved to `docs/idea-to-plan/plans/<filename>.md`. Please review the plan. Does it capture what you want?"**
 
-**If Subagent-driven chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-
-**If Native chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:executing-plans
+**After the method is chosen:** follow the corresponding method in the
+"Execution Methods" section above — no external skill is required.

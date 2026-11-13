@@ -14,6 +14,29 @@ People often haven't finished working out what they want. Good questions
 help them think it through. When you understand the why, you make the
 hundred decisions they never mention the way they would have made them.
 
+## 快速参考（先读这一段）
+
+**核心循环（按顺序执行）：**
+
+1. **先弄清已知**——在已有项目或已给上下文时，先读透相关材料再开口；
+2. **一个开放问题开场**——让对方用自己的话描述真正想要的东西及原因；
+3. **列出方案**——理解之后，单独发一条消息，给出 2-3 个可行方案及取舍，请对方选择；
+4. **写设计文档**——小型改动用短版，项目用完整版（骨架见下）；
+5. **拿批准，然后交棒**——批准后调用 `idea-to-plan:writing-plans`，在此之前不构建任何东西。
+
+**硬性门禁：** 设计文档未获对方明确批准前，不得构建——包括写产品代码、搭脚手架、装依赖、创建项目、调用实现类技能。阅读和探索不受限制。
+
+**对话纪律：** 每条消息只问一个问题；平实语言，贴合对方用词，不用流程术语；无需向对方引用本技能。
+
+**交棒检查清单**（转交 writing-plans 前逐项确认）：
+
+- [ ] 已知信息已挖掘——相关材料已读透，没有重复询问项目已能回答的问题
+- [ ] 对方用自己的话描述过想要的东西（而非仅从选项菜单里挑选）
+- [ ] 已单独列出 2-3 个方案，对方已明确选择其一
+- [ ] 工作规模已用平实语言说明，对方可覆盖
+- [ ] 设计文档已写好（含 Approaches 部分），已获对方明确批准
+- [ ] 下一步只调用 `idea-to-plan:writing-plans`，不调用其他技能
+
 ## First: What Do You Actually Know?
 
 Before you reply, ask yourself: what do I know about what they want, and
@@ -29,7 +52,7 @@ Before you start implementing, you must, in order:
    human partner pick one (see Lay out the approaches).
 2. Write the design doc, short or full (see Size the Work).
 3. Get their approval of that doc.
-4. Invoke the superpowers:writing-plans skill.
+4. Invoke the idea-to-plan:writing-plans skill.
 
 Two things aren't implementing: a spike they said yes to (see Spike to
 feel things out), and doing what they asked once they've opted out of
@@ -208,21 +231,26 @@ order, and brainstorm them one at a time.
 ## The Written Design
 
 Write a plain document a talented builder in the domain could plan
-from without going back to your human partner. Cover:
+from without going back to your human partner. Use this skeleton:
 
-- intent and the why
-- goals, non-goals, anti-goals
-- constraints
-- approaches (above)
-- the parts of the how they decided, as they decided them
-- what's left to the builder
+```markdown
+# <Topic> Design
 
-For a small change, the short design covers the same points in a line
-or two each and goes straight to your human partner, without the
-builder check.
+**Intent & Why:** 要做什么，为什么做（对方表述的动机）
+
+**Goals / Non-goals / Anti-goals:** 目标；明确不做的；做了也算失败的情形
+
+**Constraints:** 平台、依赖、资源等硬约束
+
+**Approaches:** 考虑过的 2-3 个方案、各自取舍、最终选择及原因
+
+**How（已定部分）:** 对方已拍板的技术与设计决策，按其决定如实记录
+
+**Left to the builder:** 留给实现者自行决断的部分
+```
 
 **Where it goes:** in a software repo,
-`docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`, committed.
+`docs/idea-to-plan/specs/YYYY-MM-DD-<topic>-design.md`, committed.
 Otherwise, ask. Your human partner's preferences override both.
 
 **Builder check** (for a project): dispatch a fresh subagent with
@@ -257,7 +285,7 @@ stays labeled throwaway, and keeping what it produced is a new request
 that comes back through this gate.
 
 After the design doc is approved, the next step is the plan: invoke
-superpowers:writing-plans and no other skill.
+idea-to-plan:writing-plans and no other skill.
 </HARD-GATE>
 
 ## Red Flags
@@ -266,7 +294,7 @@ superpowers:writing-plans and no other skill.
 |---------|---------|
 | "I'll offer a menu of what they might want" | Options steer. Ask them to describe it first. |
 | "I'll fill in sensible defaults" | Good. Say them out loud. A default they never heard is one they couldn't reject. |
-| "I've answered their questions, so I'll write the doc" | Lay out the approaches first, in a message of their own. |
+| "I've answered their questions, so I'll write the doc" | Lay out the approaches first, in a message of its own. |
 | "I should explain the process first" | Ask your question. The process shows itself. |
 | "They said 'sounds good' to the idea" | Approval covers what you showed them. A design doc you haven't written isn't approved. |
 | "The spike works, I'll keep building on it" | Keeping it is a new request. Back through the gate. |
