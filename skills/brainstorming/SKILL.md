@@ -170,6 +170,11 @@ there's genuinely one sensible way, say so and explain why the others
 don't fit. This is for how it gets built; for what they want, get them
 describing first.
 
+**Behavioral discipline:** this whole phase follows
+`idea-to-plan:karpathy-guidelines` — don't assume, surface tradeoffs
+rather than picking silently, and ask rather than hide confusion
+(see "Think Before Coding").
+
 **Show, don't tell.** Offer the visual companion (below) whenever seeing
 would help more than reading:
 

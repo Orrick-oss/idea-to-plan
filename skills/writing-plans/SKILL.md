@@ -11,6 +11,10 @@ description: Use when you have a spec or requirements for a multi-step task, bef
 
 **核心原则：** DRY · YAGNI · TDD · 频繁提交。**每个步骤 = 一个动作 + 一个可检查的结果。**
 
+**行为纪律：** 写计划与执行全程遵循 `idea-to-plan:karpathy-guidelines`——
+最小实现、只碰必须碰的改动、为每个任务定义可验证的成功标准（对应
+"Simplicity First" / "Surgical Changes" / "Goal-Driven Execution"）。
+
 **计划文档解剖：**
 
 1. **头部（Plan Document Header）**：目标、架构、技术栈、规格出处、全局约束、Review Focus

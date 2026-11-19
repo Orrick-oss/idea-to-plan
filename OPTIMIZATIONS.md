@@ -1,9 +1,15 @@
 # 优化说明（OPTIMIZATIONS）
 
-本文档记录 **idea-to-plan** 在研习上游项目
-[obra/superpowers](https://github.com/obra/superpowers)（Jesse Vincent，MIT License）
-两项技能的基础上，所做的优化与个性化修改。目标是在保留上游方法论核心的前提下，
-形成**自包含、结构清晰、易于使用与讲解**的个性化版本。
+本文档记录 **idea-to-plan** 在研习上游项目的基础上，所做的优化与个性化修改。
+上游来源包括：
+
+- 工作流技能：[obra/superpowers](https://github.com/obra/superpowers)
+  （Jesse Vincent，MIT License）的 brainstorming 与 writing-plans 两项技能；
+- 行为纪律技能：[multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
+  （MIT License，内容源自 Andrej Karpathy 的观察）的 karpathy-guidelines 技能。
+
+目标是在保留各上游方法论核心的前提下，形成**自包含、结构清晰、易于使用与讲解**
+的个性化版本。
 
 所有修改均在上游 MIT 许可证允许的范围内进行，上游版权与许可声明原样保留。
 
@@ -95,6 +101,33 @@ SKILL.md 中。
 **理由：** 使用方（同事/同学）可以清楚看到"做了什么优化、为什么做、
 与上游的关系"，便于讲解与评审。
 
+## 7. 引入行为纪律技能（整合 karpathy-guidelines）
+
+**背景：** idea-to-plan 原有的两个技能解决"**做什么、按什么顺序**"的工作流
+骨架，缺少对"**怎么做**"的行为约束。为此整合上游
+[multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)
+（MIT License，内容源自 Andrej Karpathy 的观察）中的 `karpathy-guidelines`
+技能，作为贯穿全工作流的行为纪律。
+
+**整合内容：**
+
+- 新增第三技能 `skills/karpathy-guidelines/SKILL.md`，四条原则
+  （编码前思考、简洁优先、精准修改、目标驱动执行）**原样保留**、自包含，
+  顶部加定位说明，标明其属于 idea-to-plan、贯穿全工作流；
+- **交叉引用**：在 `brainstorming/SKILL.md` 的澄清/设计环节加引用
+  （对应"编码前思考"：不假设、呈现权衡、主动提问）；在
+  `writing-plans/SKILL.md` 的计划与执行环节加引用（对应"简洁优先 /
+  精准修改 / 目标驱动执行"：最小实现、精准改动、可验证成功标准）；
+- **文档更新**：README 技能列表、目录结构、工作流、来源章节；NOTICE 新增
+  归属声明；本文档记录整合记录。
+
+**理由：** 工作流骨架与行为纪律互补——前者定流程，后者定每一步"怎么做"
+的约束，结合后工作流的每一步都有行为约束兜底，使项目更完善、更合理。
+
+**交叉引用设计：** 采用独立技能 + 交叉引用而非拆解并入，保证四条原则整体
+保留、结构清晰、后续好同步；引用统一使用 `idea-to-plan:karpathy-guidelines`
+前缀，与项目命名自洽。
+
 ## 未改动的内容（刻意保留）
 
 以下上游内容**未做修改**，以保证方法论的完整性与有效性：
@@ -107,5 +140,9 @@ SKILL.md 中。
 
 ## 版本
 
-- 优化版本：**1.0.0**（可视化伴侣页脚版本号同步标注）
-- 基线：obra/superpowers 的 brainstorming 与 writing-plans 技能
+- 优化版本：**1.1.0**（在 1.0.0 基础上整合 karpathy-guidelines 行为纪律技能）
+  - 1.0.0：基于 obra/superpowers 的 brainstorming 与 writing-plans 两项技能
+  - 1.1.0：整合 multica-ai/andrej-karpathy-skills 的 karpathy-guidelines，
+    作为贯穿全工作流的行为纪律，并加交叉引用
+- 基线：obra/superpowers 的 brainstorming 与 writing-plans 技能；
+  multica-ai/andrej-karpathy-skills 的 karpathy-guidelines 技能

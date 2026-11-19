@@ -1,26 +1,48 @@
 # idea-to-plan
 
-一套面向 AI 编码代理的**轻量工作流技能**，只保留两件事，并把它们打磨成可直接落地的闭环：
+一套面向 AI 编码代理的**轻量工作流技能**，覆盖"做什么、按什么顺序、怎么做"三个层面，打磨成可直接落地的闭环：
 
 - **brainstorming**：在动手前，通过结构化对话澄清"真正想要什么、为什么"，产出可批准的设计文档；
-- **writing-plans**：把已批准的设计拆解为逐任务、带测试、可独立验证的实施计划，并内置两种执行方式。
+- **writing-plans**：把已批准的设计拆解为逐任务、带测试、可独立验证的实施计划，并内置两种执行方式；
+- **karpathy-guidelines**：贯穿全工作流的行为纪律，四条原则约束"怎么做"，让工作流每一步都有行为约束兜底。
 
-本仓库基于对 [obra/superpowers](https://github.com/obra/superpowers) 两项技能的研习与吸收，做了**精选提取 + 优化与个性化**：只保留上述两项技能，并完成自包含化、结构与效率优化，形成可直接使用的版本。优化详情见 [OPTIMIZATIONS.md](./OPTIMIZATIONS.md)。
+本仓库在**研习**上游项目的基础上做了精选提取 + 优化与个性化：
+
+- 工作流技能（brainstorming、writing-plans）源自 [obra/superpowers](https://github.com/obra/superpowers)（Jesse Vincent，MIT License）；
+- 行为纪律技能（karpathy-guidelines）源自 [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)（MIT License，内容源自 Andrej Karpathy 的观察）。
+
+完成自包含化、结构与效率优化，形成可直接使用的版本。优化详情见 [OPTIMIZATIONS.md](./OPTIMIZATIONS.md)。
 
 ## ⚠️ 来源与版权声明
 
-This project is a **derivative work**, extracted and repackaged from
-[**obra/superpowers**](https://github.com/obra/superpowers) by Jesse Vincent.
+本仓库为**派生作品（derivative work）**，由以下两个上游开源项目提取、整合而来：
+
+**一、工作流技能来源**
+
+提取并再分发自 [**obra/superpowers**](https://github.com/obra/superpowers)，作者 Jesse Vincent。
 
 - **Original project:** https://github.com/obra/superpowers
 - **Original author:** Jesse Vincent (obra)
 - **Original license:** MIT License — see [LICENSE](./LICENSE) (unchanged,
   original copyright notice preserved as required by the MIT license)
-- **What was extracted:** only the `brainstorming` and `writing-plans` skills
+- **What was extracted:** the `brainstorming` and `writing-plans` skills
   from the upstream `skills/` directory. No other skill, script, or asset from
   the upstream project is included.
-- **Project name:** renamed for this distribution; the rename does not affect
-  the license or the attribution obligations described above.
+
+**二、行为纪律技能来源**
+
+整合自 [**multica-ai/andrej-karpathy-skills**](https://github.com/multica-ai/andrej-karpathy-skills)，
+MIT License；其中 `karpathy-guidelines` 的内容源自 Andrej Karpathy 对 LLM 编码误区的观察。
+
+- **Upstream project:** https://github.com/multica-ai/andrej-karpathy-skills
+- **Upstream license:** MIT License
+- **What was integrated:** the `karpathy-guidelines` skill (four behavioral
+  principles), retained as a self-contained third skill.
+- **Underlying source:** derived from Andrej Karpathy's observations on LLM
+  coding pitfalls.
+
+**命名说明：** 本仓库名称（idea-to-plan）为本分发版本所取的新名称。改名行为不构成对
+上游项目主张任何所有权，上述署名要求不受影响。
 
 See [NOTICE.md](./NOTICE.md) for the full attribution statement.
 
@@ -35,14 +57,18 @@ See [NOTICE.md](./NOTICE.md) for the full attribution statement.
 | **快速参考入口** | 两个 SKILL.md 顶部新增"快速参考"：核心循环、动工前检查清单，代理与人类都能一眼抓住要点 |
 | **设计文档骨架** | brainstorming 内置设计文档模板骨架，产出结构一致、可直接审批的设计文档 |
 | **品牌自洽** | 可视化伴侣（浏览器服务）的页脚、标题、会话目录、环境变量全部改为 idea-to-plan，去除上游与第三方品牌残留 |
+| **行为纪律整合** | 引入第三技能 `karpathy-guidelines`，以四条原则为全工作流提供"怎么做"的行为约束，并在 brainstorming / writing-plans 对应环节加交叉引用，形成工作流骨架与行为纪律互补的整体 |
 | **变更可追溯** | 新增 [OPTIMIZATIONS.md](./OPTIMIZATIONS.md)，逐项记录优化内容与理由，便于讲解与评审 |
 
-## 包含的两项技能
+## 包含的技能
 
 | 技能 | 用途 |
 |------|------|
 | `skills/brainstorming` | 在任何创造性工作（建功能、做组件、改行为、做规划）开始前，通过结构化对话澄清用户真正想要的东西，并产出可批准的设计文档 |
 | `skills/writing-plans` | 在拿到规格/需求、动手写代码之前，把设计拆解为逐任务、带测试、可独立验证的实施计划，并内置子代理驱动 / 原生两种执行方式 |
+| `skills/karpathy-guidelines` | 贯穿全工作流的行为纪律：编码前思考、简洁优先、精准修改、目标驱动执行，约束"怎么做"，让工作流每一步都有行为约束兜底 |
+
+三项技能**自包含**，其中 `karpathy-guidelines` 作为行为纪律被前两项技能在对应环节交叉引用，形成有机整体。
 
 ## 目录结构
 
@@ -58,17 +84,19 @@ idea-to-plan/
     │   ├── builder-check-prompt.md
     │   ├── visual-companion.md
     │   └── scripts/    # 可视化伴侣服务（frame-template.html、server.cjs 等）
-    └── writing-plans/
-        └── SKILL.md
+    ├── writing-plans/
+    │   └── SKILL.md
+    └── karpathy-guidelines/
+        └── SKILL.md     # 贯穿全工作流的行为纪律（四条原则）
 ```
 
 ## 使用方法
 
-将 `skills/` 下的两个目录复制到对应 Agent 平台的 skills 目录（例如
-`~/.workbuddy/skills/`），即可按技能名调用。两项技能**自包含**，无需
+将 `skills/` 下的三个目录复制到对应 Agent 平台的 skills 目录（例如
+`~/.workbuddy/skills/`），即可按技能名调用。三项技能**自包含**，无需
 额外安装其他技能。
 
-标准工作流：
+标准工作流（`karpathy-guidelines` 作为行为纪律贯穿全程）：
 
 ```
 需求/想法
@@ -78,9 +106,14 @@ idea-to-plan/
    │  writing-plans（拆解任务 → 自检 → 用户审阅 → 执行）
    ▼
 实施计划 → 按任务实现
+
+────────────────────────────────────────────
+karpathy-guidelines（编码前思考 · 简洁优先 · 精准修改 · 目标驱动执行）
+贯穿上述每一步，约束"怎么做"
 ```
 
 ## 许可证
 
-MIT License，与上游项目一致。版权归原作者 Jesse Vincent 所有，详见
-[LICENSE](./LICENSE)。
+MIT License，与各上游项目一致。工作流技能版权归原作者 Jesse Vincent 所有；
+行为纪律技能源自 multica-ai/andrej-karpathy-skills（MIT License），内容基于
+Andrej Karpathy 的观察。详见 [LICENSE](./LICENSE) 与 [NOTICE.md](./NOTICE.md)。
