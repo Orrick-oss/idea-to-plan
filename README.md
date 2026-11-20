@@ -6,7 +6,7 @@
 - **writing-plans**：把已批准的设计拆解为逐任务、带测试、可独立验证的实施计划，并内置两种执行方式；
 - **karpathy-guidelines**：贯穿全工作流的行为纪律，四条原则约束"怎么做"，让工作流每一步都有行为约束兜底。
 
-本仓库在**研习**上游项目的基础上做了精选提取 + 优化与个性化：
+本仓库在**学习**上游项目的基础上做了精选提取 + 优化与个性化：
 
 - 工作流技能（brainstorming、writing-plans）源自 [obra/superpowers](https://github.com/obra/superpowers)（Jesse Vincent，MIT License）；
 - 行为纪律技能（karpathy-guidelines）源自 [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)（MIT License，内容源自 Andrej Karpathy 的观察）。
@@ -69,6 +69,43 @@ See [NOTICE.md](./NOTICE.md) for the full attribution statement.
 | `skills/karpathy-guidelines` | 贯穿全工作流的行为纪律：编码前思考、简洁优先、精准修改、目标驱动执行，约束"怎么做"，让工作流每一步都有行为约束兜底 |
 
 三项技能**自包含**，其中 `karpathy-guidelines` 作为行为纪律被前两项技能在对应环节交叉引用，形成有机整体。
+
+## karpathy-guidelines：要解决的问题与原理
+
+`karpathy-guidelines` 并非凭空订立的规则，而是直接针对 LLM 编码中最常见、也最昂贵的几类误区。这些误区由 Andrej Karpathy 系统指出，本技能据此提炼出四条行为原则，让工作流的每一步都有行为约束兜底。
+
+### 要解决的问题
+
+Karpathy 指出，LLM 在编码时普遍存在三类典型误区：
+
+> "模型会替你做出错误假设，然后顺着这个假设一路做下去而不去核对。它们不管理自己的困惑、不寻求澄清、不暴露不一致、不呈现取舍、在该坚持时也不据理力争。"
+
+> "它们特别偏爱把代码和 API 过度复杂化，堆砌臃肿的抽象、不清理死代码……本可 100 行完成的事，却用 1000 行去搭建。"
+
+> "它们有时还会顺带改动或删除自己并未充分理解的注释和代码，哪怕这些内容与当前任务并无关系。"
+
+### 四条原则如何逐一对症
+
+针对上述问题，四条原则各自对症，形成一套直接回应这些误区的行为纪律：
+
+| 原则 | 对症解决的问题 |
+|------|----------------|
+| **编码前思考（Think Before Coding）** | 错误假设、隐藏困惑、缺少取舍呈现 |
+| **简洁优先（Simplicity First）** | 过度复杂、臃肿的抽象 |
+| **精准修改（Surgical Changes）** | 越界编辑、碰了不该碰的代码 |
+| **目标驱动执行（Goal-Driven Execution）** | 以测试优先、可验证的成功标准获得杠杆 |
+
+**核心洞察：** Karpathy 观察到——
+
+> "LLM 非常擅长循环执行，直到达成特定目标……不要只告诉它做什么，而是给它成功标准，然后看着它完成。"
+
+「目标驱动执行」正是抓住这一点：把指令式的任务，转化为带验证循环的、可验证的目标，让代理能独立循环推进，而无需反复澄清。
+
+### 权衡说明
+
+这套原则**偏向谨慎而非速度**。对于琐碎任务（改个笔误、显而易见的一行改动），运用判断力即可——并非每次改动都需要全套严谨流程。其目标是**降低非平凡工作中代价高昂的错误**，而不是拖慢简单任务。
+
+上述原理与四条原则的完整表述，见 [`skills/karpathy-guidelines/SKILL.md`](./skills/karpathy-guidelines/SKILL.md)。
 
 ## 目录结构
 
